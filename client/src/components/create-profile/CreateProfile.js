@@ -1,46 +1,46 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import TextFieldGroup from '../common/TextFieldGroup'
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup'
-import InputGroup from '../common/InputGroup'
-import SelectListGroup from '../common/SelectListGroup'
-import { createProfile } from '../../actions/profileActions'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import TextFieldGroup from "../common/TextFieldGroup";
+import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
+import InputGroup from "../common/InputGroup";
+import SelectListGroup from "../common/SelectListGroup";
+import { createProfile } from "../../actions/profileActions";
 
 class CreateProfile extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       displaySocialInputs: false,
-      handle: '',
-      company: '',
-      website: '',
-      location: '',
-      status: '',
-      skills: '',
-      githubusername: '',
-      bio: '',
-      twitter: '',
-      facebook: '',
-      linkedin: '',
-      youtube: '',
-      instagram: '',
+      handle: "",
+      company: "",
+      website: "",
+      location: "",
+      status: "",
+      skills: "",
+      githubusername: "",
+      bio: "",
+      twitter: "",
+      facebook: "",
+      linkedin: "",
+      youtube: "",
+      instagram: "",
       errors: {}
-    }
+    };
 
-    this.onChange = this.onChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors })
+      this.setState({ errors: nextProps.errors });
     }
   }
 
   onSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     const profileData = {
       handle: this.state.handle,
@@ -56,19 +56,19 @@ class CreateProfile extends Component {
       linkedin: this.state.linkedin,
       youtube: this.state.youtube,
       instagram: this.state.instagram
-    }
+    };
 
-    this.props.createProfile(profileData, this.props.history)
+    this.props.createProfile(profileData, this.props.history);
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
-    const { errors, displaySocialInputs } = this.state
+    const { errors, displaySocialInputs } = this.state;
 
-    let socialInputs
+    let socialInputs;
 
     if (displaySocialInputs) {
       socialInputs = (
@@ -118,21 +118,21 @@ class CreateProfile extends Component {
             error={errors.instagram}
           />
         </div>
-      )
+      );
     }
 
     // Select options for status
     const options = [
-      { label: '* Select Professional Status', value: 0 },
-      { label: 'Developer', value: 'Developer' },
-      { label: 'Junior Developer', value: 'Junior Developer' },
-      { label: 'Senior Developer', value: 'Senior Developer' },
-      { label: 'Manager', value: 'Manager' },
-      { label: 'Student or Learning', value: 'Student or Learning' },
-      { label: 'Instructor or Teacher', value: 'Instructor or Teacher' },
-      { label: 'Intern', value: 'Intern' },
-      { label: 'Other', value: 'Other' }
-    ]
+      { label: "* Select Professional Status", value: 0 },
+      { label: "Developer", value: "Developer" },
+      { label: "Junior Developer", value: "Junior Developer" },
+      { label: "Senior Developer", value: "Senior Developer" },
+      { label: "Manager", value: "Manager" },
+      { label: "Student or Learning", value: "Student or Learning" },
+      { label: "Instructor or Teacher", value: "Instructor or Teacher" },
+      { label: "Intern", value: "Intern" },
+      { label: "Other", value: "Other" }
+    ];
 
     return (
       <div className="create-profile">
@@ -161,7 +161,7 @@ class CreateProfile extends Component {
                   options={options}
                   error={errors.status}
                   info="Give us an idea of where you are at in your career"
-                  style={{fontSize: '13px'}}
+                  style={{ fontSize: "13px" }}
                 />
                 <TextFieldGroup
                   placeholder="Company"
@@ -219,7 +219,7 @@ class CreateProfile extends Component {
                     onClick={() => {
                       this.setState(prevState => ({
                         displaySocialInputs: !prevState.displaySocialInputs
-                      }))
+                      }));
                     }}
                     className="btn btn-light"
                   >
@@ -231,27 +231,28 @@ class CreateProfile extends Component {
                 <input
                   type="submit"
                   value="Submit"
-                  className="btn btn-info btn-block mt-4"
+                  className="btn btn-dark btn-block mt-4"
                 />
               </form>
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 CreateProfile.propTypes = {
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
-}
+};
 
 const mapStateToProps = state => ({
   profile: state.profile,
   errors: state.errors
-})
+});
 
-export default connect(mapStateToProps, {createProfile})(
-  withRouter(CreateProfile)
-)
+export default connect(
+  mapStateToProps,
+  { createProfile }
+)(withRouter(CreateProfile));

@@ -1,15 +1,14 @@
-import React from 'react'
-import isEmpty from '../../validation/is-empty'
+import React from "react";
+import isEmpty from "../../validation/is-empty";
 
 class ProfileHeader extends React.Component {
   render() {
-
-    const { profile } = this.props
+    const { profile } = this.props;
 
     return (
       <div className="row">
         <div className="col-md-12">
-          <div className="card card-body bg-info text-white mb-3">
+          <div className="card card-body bg-dark text-white mb-3">
             <div className="row">
               <div className="col-4 col-md-3 m-auto">
                 <img
@@ -22,7 +21,7 @@ class ProfileHeader extends React.Component {
             <div className="text-center">
               <h1 className="display-4 text-center">{profile.user.name}</h1>
               <p className="lead text-center">
-                {profile.status}{' '}
+                {profile.status}{" "}
                 {isEmpty(profile.company) ? null : (
                   <span>at {profile.company}</span>
                 )}
@@ -93,9 +92,8 @@ class ProfileHeader extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-
-export default ProfileHeader
+export default ProfileHeader;

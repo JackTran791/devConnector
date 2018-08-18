@@ -1,34 +1,34 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import classnames from 'classnames'
-import { Link } from 'react-router-dom'
-import { deletePost, addLike, removeLike } from '../../actions/postActions'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import classnames from "classnames";
+import { Link } from "react-router-dom";
+import { deletePost, addLike, removeLike } from "../../actions/postActions";
 
 class PostItem extends Component {
   onDeleteClick(id) {
-    this.props.deletePost(id)
+    this.props.deletePost(id);
   }
 
   onLikeClick(id) {
-    this.props.addLike(id)
+    this.props.addLike(id);
   }
 
   onUnlikeClick(id) {
-    this.props.removeLike(id)
+    this.props.removeLike(id);
   }
 
   findUserLike(likes) {
-    const { auth } = this.props
+    const { auth } = this.props;
     if (likes.filter(like => like.user === auth.user.id).length > 0) {
-      return true
+      return true;
     } else {
-      return false
+      return false;
     }
   }
 
   render() {
-    const { post, auth, showActions } = this.props
+    const { post, auth, showActions } = this.props;
 
     return (
       <div className="card card-body mb-3">
@@ -54,8 +54,8 @@ class PostItem extends Component {
                   className="btn btn-light mr-1"
                 >
                   <i
-                    className={classnames('fas fa-thumbs-up', {
-                      'text-info': this.findUserLike(post.likes)
+                    className={classnames("fas fa-thumbs-up", {
+                      "text-info": this.findUserLike(post.likes)
                     })}
                   />
                   <span className="badge badge-light">{post.likes.length}</span>
@@ -67,7 +67,7 @@ class PostItem extends Component {
                 >
                   <i className="text-secondary fas fa-thumbs-down" />
                 </button>
-                <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
+                <Link to={`/post/${post._id}`} className="btn btn-light mr-1">
                   Comments
                 </Link>
                 {post.user === auth.user.id ? (
@@ -84,13 +84,13 @@ class PostItem extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 PostItem.defaultProps = {
   showActions: true
-}
+};
 
 PostItem.propTypes = {
   deletePost: PropTypes.func.isRequired,
@@ -98,12 +98,13 @@ PostItem.propTypes = {
   removeLike: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
-}
+};
 
 const mapStateToProps = state => ({
   auth: state.auth
-})
+});
 
-export default connect(mapStateToProps, { deletePost, addLike, removeLike })(
-  PostItem
-)
+export default connect(
+  mapStateToProps,
+  { deletePost, addLike, removeLike }
+)(PostItem);

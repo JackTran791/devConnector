@@ -1,31 +1,26 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import Spinner from '../common/Spinner'
-import ProfileItem from './ProfileItem'
-import { getProfiles } from '../../actions/profileActions'
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Spinner from "../common/Spinner";
+import ProfileItem from "./ProfileItem";
+import { getProfiles } from "../../actions/profileActions";
 
 class Profiles extends React.Component {
-
   componentDidMount() {
-    this.props.getProfiles()
+    this.props.getProfiles();
   }
 
   render() {
+    const { profiles, loading } = this.props.profile;
+    let profileItems;
 
-    const { profiles, loading } = this.props.profile
-    let profileItems
-
-    if(profiles === null || loading) {
-      profileItems = <Spinner />
+    if (profiles === null || loading) {
+      profileItems = <Spinner />;
     } else {
-      if(profiles.length > 0) {
+      if (profiles.length > 0) {
         profileItems = profiles.map(profile => (
-          <ProfileItem
-            key={profile._id}
-            profile={profile}
-            />
-        ))
+          <ProfileItem key={profile._id} profile={profile} />
+        ));
       }
     }
 
@@ -34,7 +29,9 @@ class Profiles extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1 className="display-4 text-center">Developer Profiles</h1>
+              <h1 className="display-4 text-center">
+                Developer <span style={{ color: "#eece1a" }}>Profiles</span>
+              </h1>
               <p className="lead text-center">
                 Browse and connect with developers
               </p>
@@ -43,17 +40,20 @@ class Profiles extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 Profiles.propTypes = {
   getProfiles: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
-}
+};
 
 const mapStateToProps = state => ({
   profile: state.profile
-})
+});
 
-export default connect(mapStateToProps, { getProfiles })(Profiles)
+export default connect(
+  mapStateToProps,
+  { getProfiles }
+)(Profiles);
