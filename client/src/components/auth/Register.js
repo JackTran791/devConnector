@@ -49,6 +49,7 @@ class Register extends Component {
     this.props.registerUser(newUser, this.props.history)
   }
 
+
   render() {
     const { errors } = this.state
 
@@ -95,6 +96,7 @@ class Register extends Component {
                   error={errors.password2}
                 />
                 <input type="submit" className="btn btn-info btn-block mt-4" />
+                <br />
               </form>
             </div>
           </div>

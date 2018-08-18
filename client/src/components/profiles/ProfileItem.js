@@ -1,13 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import isEmpty from '../../validation/is-empty'
-import { Link } from 'react-router-dom'
+import React from "react";
+import PropTypes from "prop-types";
+import isEmpty from "../../validation/is-empty";
+import { Link } from "react-router-dom";
 
 class ProfileItem extends React.Component {
-
   render() {
-
-    const { profile } = this.props
+    const { profile } = this.props;
 
     return (
       <div className="card card-body bg-light mb-3">
@@ -18,7 +16,7 @@ class ProfileItem extends React.Component {
           <div className="col-lg-6 col-md-4 col-8">
             <h3>{profile.user.name}</h3>
             <p>
-              {profile.status}{' '}
+              {profile.status}{" "}
               {isEmpty(profile.company) ? null : (
                 <span>at {profile.company}</span>
               )}
@@ -45,13 +43,12 @@ class ProfileItem extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 ProfileItem.propTypes = {
   profile: PropTypes.object.isRequired
-}
+};
 
-
-export default ProfileItem
+export default ProfileItem;
