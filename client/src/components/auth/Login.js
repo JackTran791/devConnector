@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import TextFieldGroup from "../common/TextFieldGroup";
-import { withAlert } from "react-alert";
 
 class Login extends React.Component {
   constructor(props) {
@@ -39,10 +38,7 @@ class Login extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.alert.show("Oh look, an alert!");
       this.props.history.push("/dashboard");
-    } else {
-      this.props.alert.show("Oh look, an error!");
     }
 
     if (nextProps.errors) {
@@ -119,4 +115,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { loginUser }
-)(withAlert(Login));
+)(Login);
