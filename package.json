@@ -23,7 +23,13 @@
     "mongoose": "^5.2.4",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2",
+    "react-alert": "^4.0.4",
+    "react-alert-template-basic": "^1.0.0",
+    "react-dom": "^16.4.2",
     "react-facebook-login": "^4.0.1",
+    "react-transition-group": "^2.4.0",
     "validator": "^10.4.0"
   },
   "devDependencies": {
