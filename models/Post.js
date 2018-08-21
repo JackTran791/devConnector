@@ -1,11 +1,12 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const moment = require("moment-timezone");
 
 // Create Schema
 const PostSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'users'
+    ref: "users"
   },
   text: {
     type: String,
@@ -21,7 +22,7 @@ const PostSchema = new Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: "users"
       }
     }
   ],
@@ -29,7 +30,7 @@ const PostSchema = new Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: "users"
       },
       text: {
         type: String,
@@ -51,6 +52,6 @@ const PostSchema = new Schema({
     type: Date,
     default: Date.now
   }
-})
+});
 
-module.exports = Post = mongoose.model('post', PostSchema)
+module.exports = Post = mongoose.model("post", PostSchema);

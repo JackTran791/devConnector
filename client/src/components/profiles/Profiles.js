@@ -8,14 +8,15 @@ import TextFieldGroup from "../common/TextFieldGroup";
 
 class Profiles extends React.Component {
   state = {
-    search: ""
+    searchName: "",
+    searchLocation: ""
   };
 
   componentDidMount() {
     this.props.getProfiles();
   }
 
-  onChangeSearchHandler = e => {
+  onChangeHandler = e => {
     this.setState({
       [e.target.name]: e.target.value.substr(0, 20)
     });
@@ -29,14 +30,19 @@ class Profiles extends React.Component {
       profileItems = <Spinner />;
     } else {
       if (profiles.length > 0) {
-        const { search } = this.state;
-        console.log(search);
+        const { searchName, searchLocation } = this.state;
 
+        // Searching function
         profileItems = profiles.filter(
           profile =>
-            profile.handle.toLowerCase().indexOf(search.toLowerCase()) !== -1
+            profile.handle.toLowerCase().indexOf(searchName.toLowerCase()) !==
+              -1 &&
+            profile.location
+              .toLowerCase()
+              .indexOf(searchLocation.toLocaleLowerCase()) !== -1
         );
 
+        // Loading data function
         profileItems = profileItems.map(profile => (
           <ProfileItem key={profile._id} profile={profile} />
         ));
@@ -54,18 +60,26 @@ class Profiles extends React.Component {
               <p className="lead text-center">
                 Browse and connect with developers
               </p>
-              <div>
-                {/* <i className="fa fa-search" /> */}
-                <TextFieldGroup
-                  placeholder="Enter name of a developer that you are looking..."
-                  name="search"
-                  type="text"
-                  value={this.state.search}
-                  onChange={this.onChangeSearchHandler}
-                  style={{
-                    width: "500px"
-                  }}
-                />
+              <div className="row">
+                <div className="col">
+                  {/* <i className="fa fa-search" /> */}
+                  <TextFieldGroup
+                    placeholder="Enter name of a developer that you are looking..."
+                    name="searchName"
+                    type="text"
+                    value={this.state.searchName}
+                    onChange={this.onChangeHandler}
+                  />
+                </div>
+                <div className="col">
+                  <TextFieldGroup
+                    placeholder="Enter location..."
+                    name="searchLocation"
+                    type="text"
+                    value={this.state.searchLocation}
+                    onChange={this.onChangeHandler}
+                  />
+                </div>
               </div>
               {profileItems}
             </div>

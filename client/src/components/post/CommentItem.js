@@ -1,18 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { deleteComment } from '../../actions/postActions'
+import React from "react";
+import PropTypes from "prop-types";
+import Moment from "react-moment";
+import "moment-timezone";
+import { connect } from "react-redux";
+import { deleteComment } from "../../actions/postActions";
 
 class CommentItem extends React.Component {
-
-
   onDeleteClick(postId, commentId) {
-    this.props.deleteComment(postId, commentId)
+    this.props.deleteComment(postId, commentId);
   }
 
-  render () {
-
-    const { comment, postId, auth } = this.props
+  render() {
+    const { comment, postId, auth } = this.props;
 
     return (
       <div className="card card-body mb-3">
@@ -30,6 +29,12 @@ class CommentItem extends React.Component {
           </div>
           <div className="col-md-10">
             <p className="lead">{comment.text}</p>
+            {/* <p className="lead" style={{ fontSize: "12px" }}>
+              {comment.date.slice(11, 19)} {comment.date.slice(0, 10)}
+            </p> */}
+            <p className="lead" style={{ fontSize: "12px" }}>
+              <Moment toNow>{comment.date}</Moment>
+            </p>
             {comment.user === auth.user.id ? (
               <button
                 onClick={this.onDeleteClick.bind(this, postId, comment._id)}
@@ -42,19 +47,22 @@ class CommentItem extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 CommentItem.propTypes = {
-    postId: PropTypes.string.isRequired,
-    deleteComment: PropTypes.func.isRequired,
-    comment: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired
-}
+  postId: PropTypes.string.isRequired,
+  deleteComment: PropTypes.func.isRequired,
+  comment: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
   auth: state.auth
-})
+});
 
-export default connect(mapStateToProps, { deleteComment})(CommentItem)
+export default connect(
+  mapStateToProps,
+  { deleteComment }
+)(CommentItem);

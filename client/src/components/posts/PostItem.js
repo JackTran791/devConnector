@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import Moment from "react-moment";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
@@ -10,9 +11,10 @@ class PostItem extends Component {
     this.props.deletePost(id);
   }
 
-  onLikeClick(id) {
+  onLikeClick = (id, e) => {
+    e.preventDefault();
     this.props.addLike(id);
-  }
+  };
 
   onUnlikeClick(id) {
     this.props.removeLike(id);
@@ -46,6 +48,10 @@ class PostItem extends Component {
           </div>
           <div className="col-md-10">
             <p className="lead">{post.text}</p>
+            <p className="lead" style={{ fontSize: "12px" }}>
+              {/* {post.date.slice(11, 19)} {post.date.slice(0, 10)} */}
+              <Moment toNow>{post.date}</Moment>
+            </p>
             {showActions ? (
               <span>
                 <button

@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import {
+  NotificationContainer,
+  NotificationManager
+} from "react-notifications";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
@@ -20,6 +24,34 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  // Notifications
+  createNotification = type => {
+    return () => {
+      switch (type) {
+        case "info":
+          NotificationManager.info("Info message");
+          break;
+        case "success":
+          NotificationManager.success("Success message", "Title here");
+          break;
+        case "warning":
+          NotificationManager.warning(
+            "Warning message",
+            "Close after 3000ms",
+            3000
+          );
+          break;
+        case "error":
+          NotificationManager.error("Error message", "Click me!", 5000, () => {
+            alert("callback");
+          });
+          break;
+        default:
+          break;
+      }
+    };
+  };
+
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
@@ -36,7 +68,7 @@ class Register extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onSubmit(e) {
+  async onSubmit(e) {
     e.preventDefault();
 
     const newUser = {
@@ -45,7 +77,7 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-
+    await this.createNotification("success");
     this.props.registerUser(newUser, this.props.history);
   }
 
@@ -110,6 +142,7 @@ class Register extends Component {
             </div>
           </div>
         </div>
+        <NotificationContainer />
       </div>
     );
   }
